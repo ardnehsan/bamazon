@@ -1,3 +1,4 @@
+//creating objects to utitlize pacakages
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 var table = require('cli-table');
@@ -18,22 +19,6 @@ connection.connect(function(err){
 //Calling the main function
 start();
 
-//Function to display a table through the user terminal
-function showTable(){
-connection.query('SELECT * FROM products', function(err, res){
-
-    var display = new table({
-        head: ['Id:', 'Product','Price','Quantity'],
-        colWidths: [5,30,10,10]
-    });
-    for(i=0;i<res.length;i++)
-     {
-        display.push([res[i].item_id, res[i].product_name,"$" + res[i].price,res[i].stock_quantity]);
-     }
-     console.log(display.toString());
-    });
-
-}
 
 //function to start the prompt
 function start(){
@@ -57,6 +42,24 @@ function start(){
         purchase(theID,amount);
     });
 }
+
+//Function to display a table through the user terminal
+function showTable(){
+    connection.query('SELECT * FROM products', function(err, res){
+    
+        var display = new table({
+            head: ['Id:', 'Product','Price','Quantity'],
+            colWidths: [5,30,10,10]
+        });
+        for(i=0;i<res.length;i++)
+         {
+            display.push([res[i].item_id, res[i].product_name,"$" + res[i].price,res[i].stock_quantity]);
+         }
+         console.log(display.toString());
+        });
+    
+    }
+    
 
 //function to execute the actual purchase
 function purchase(id, quantity){
