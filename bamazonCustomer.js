@@ -15,6 +15,10 @@ connection.connect(function(err){
 
 })
 
+//Calling the main function
+start();
+
+//Function to display a table through the user terminal
 function showTable(){
 connection.query('SELECT * FROM products', function(err, res){
 
@@ -31,6 +35,7 @@ connection.query('SELECT * FROM products', function(err, res){
 
 }
 
+//function to start the prompt
 function start(){
     showTable();
     
@@ -53,8 +58,7 @@ function start(){
     });
 }
 
-start();
-
+//function to execute the actual purchase
 function purchase(id, quantity){
     connection.query('SELECT * FROM products WHERE item_id=?',[id], function(err,res){
         if(quantity <= res[0].stock_quantity)
